@@ -27,7 +27,22 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--cpus", node[:cpu] ]
         vb.customize ["modifyvm", :id, "--memory", node[:mem] ]
         vb.customize ["modifyvm", :id, "--nic2", "hostonly"]
-        vb.customize ["modifyhd", "64c93326-721d-4645-a94d-6be79de03a5d", "--resize", "100000"]
+        if ARGV[0] == "up" && ! File.exist?("./disk1.vdi")
+          vb.customize [
+            'createhd',
+            '--filename', "./disk1.vdi",
+            '--format', 'VDI',
+            # 100GB
+            '--size', 100 * 1024
+          ]
+
+          vb.customize [
+            'storageattach', :id,
+            '--storagectl', 'SATA Controller',
+            '--port', 1, '--device', 0,
+            '--type', 'hdd', '--medium','./disk1.vdi'
+          ]
+        end
       end
       config.vm.hostname = "%s.mycluster.com" % [node[:name].to_s]
       config.vm.network :private_network, ip: node[:ip], :adapter => 2
