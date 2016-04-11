@@ -27,6 +27,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--cpus", node[:cpu] ]
         vb.customize ["modifyvm", :id, "--memory", node[:mem] ]
         vb.customize ["modifyvm", :id, "--nic2", "hostonly"]
+        vb.customize ["modifyhd", "64c93326-721d-4645-a94d-6be79de03a5d", "--resize", "100000"]
       end
       config.vm.hostname = "%s.mycluster.com" % [node[:name].to_s]
       config.vm.network :private_network, ip: node[:ip], :adapter => 2

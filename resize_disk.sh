@@ -1,12 +1,12 @@
 #!/bin/bash
 
-pvdisplay | grep '/dev/sdb'
+pvdisplay | grep '/dev/sda'
 
 if [ $? != 0 ]; then
-  sudo pvcreate /dev/sdb
-  sudo vgextend rootvg /dev/sdb
-  EXTENTS=`sudo pvdisplay /dev/sdb -c | cut -d: -f10`
-  sudo lvextend -l +$EXTENTS /dev/rootvg/vol_root
-  sudo resize2fs /dev/mapper/rootvg-vol_root
+  sudo pvcreate /dev/sda
+  sudo vgextend VolGroup /dev/sda
+  EXTENTS=`sudo pvdisplay /dev/sda -c | cut -d: -f10`
+  sudo lvextend -l +100G /dev/mapper/VolGroup/lv_root
+  sudo resize2fs /dev/mapper/VolGroup-lv_root
 fi
 
