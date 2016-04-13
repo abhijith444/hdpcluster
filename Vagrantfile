@@ -5,7 +5,7 @@ nodes = [
     {:name => :"ambari", :cpu => 1, :mem => 4500, :ip => "192.168.20.20"},
     {:name => :"edge", :cpu => 1, :mem => 2500, :ip => "192.168.20.21"},
     {:name => :"comp1", :cpu => 1, :mem => 3500, :ip => "192.168.20.22"},
-    {:name => :"comp2", :cpu => 1, :mem => 3500, :ip => "192.168.20.23"}
+    {:name => :"comp2", :cpu => 1, :mem => 3500, :ip => "192.168.20.23"},
     {:name => :"comp3", :cpu => 1, :mem => 3500, :ip => "192.168.20.24"}
 ]
 Vagrant.configure(2) do |config|
