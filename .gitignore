@@ -4,3 +4,4 @@
 shared
 .git
 *.swp
+*.lock
