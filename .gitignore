@@ -1,0 +1,6 @@
+*.vdi
+.vagrant
+*.out
+shared
+.git
+*.swp

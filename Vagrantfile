@@ -1,5 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+HOST_TLD="mycluster.com"
 nodes = [
     {:name => :"ambari", :cpu => 1, :mem => 5000, :ip => "192.168.20.20"},
     {:name => :"edge", :cpu => 1, :mem => 4000, :ip => "192.168.20.21"},
@@ -12,7 +13,6 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "./shared", "/shared", create:true
   config.vm.provision :shell, :path=>"setup.sh"
 #  config.vm.provision :shell, :path=>"setup2.sh"
-  config.vm.provision "shell", path: "resize_disk.sh"
 
 #  config.vm.provision "chef_solo" do |chef|
 #    chef.add_recipe "testbook"
@@ -24,28 +24,38 @@ Vagrant.configure(2) do |config|
   nodes.each do |node|
     config.vm.define node[:name] do |config|
       config.vm.provider :virtualbox do |vb|
+        vdisk="./disk_"+node[:name].to_s+".vdi"
         vb.customize ["modifyvm", :id, "--cpus", node[:cpu] ]
         vb.customize ["modifyvm", :id, "--memory", node[:mem] ]
         vb.customize ["modifyvm", :id, "--nic2", "hostonly"]
-        if ARGV[0] == "up" && ! File.exist?("./disk1.vdi")
-          vb.customize [
+        if !File.exist?(vdisk)
+        vb.customize [
             'createhd',
-            '--filename', "./disk1.vdi",
+            '--filename', vdisk,
             '--format', 'VDI',
             # 100GB
             '--size', 100 * 1024
           ]
 
-          vb.customize [
+        vb.customize [
             'storageattach', :id,
             '--storagectl', 'SATA Controller',
             '--port', 1, '--device', 0,
-            '--type', 'hdd', '--medium','./disk1.vdi'
+            '--type', 'hdd', '--medium',vdisk
           ]
         end
       end
-      config.vm.hostname = "%s.mycluster.com" % [node[:name].to_s]
+      config.vm.hostname = "%s.%s" % [node[:name].to_s,HOST_TLD]
       config.vm.network :private_network, ip: node[:ip], :adapter => 2
+    end
+
+  end
+  config.vm.provision "shell", path: "resize_disk.sh"
+  config.vm.provision :hosts do |provisioner|
+    provisioner.autoconfigure = false
+    provisioner.add_localhost_hostnames = false
+    nodes.each do |n|
+      provisioner.add_host n[:ip], [ "%s.%s" % [ n[:name].to_s, HOST_TLD ], n[:name].to_s ]
     end
   end
 
