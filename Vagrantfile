@@ -2,10 +2,11 @@
 # vi: set ft=ruby :
 HOST_TLD="mycluster.com"
 nodes = [
-    {:name => :"ambari", :cpu => 1, :mem => 5000, :ip => "192.168.20.20"},
-    {:name => :"edge", :cpu => 1, :mem => 4000, :ip => "192.168.20.21"},
-    {:name => :"comp1", :cpu => 1, :mem => 4000, :ip => "192.168.20.22"},
-    {:name => :"comp2", :cpu => 1, :mem => 4000, :ip => "192.168.20.23"}
+    {:name => :"ambari", :cpu => 1, :mem => 4500, :ip => "192.168.20.20"},
+    {:name => :"edge", :cpu => 1, :mem => 2500, :ip => "192.168.20.21"},
+    {:name => :"comp1", :cpu => 1, :mem => 3500, :ip => "192.168.20.22"},
+    {:name => :"comp2", :cpu => 1, :mem => 3500, :ip => "192.168.20.23"}
+    {:name => :"comp3", :cpu => 1, :mem => 3500, :ip => "192.168.20.24"}
 ]
 Vagrant.configure(2) do |config|
   config.vm.box = "vagrant-centos"
@@ -22,6 +23,7 @@ Vagrant.configure(2) do |config|
 
   
   nodes.each do |node|
+    config.vm.network :forwarded_port, guest: 8080, host: 8080 if node[:name]=="ambari"
     config.vm.define node[:name] do |config|
       config.vm.provider :virtualbox do |vb|
         vdisk="./disk_"+node[:name].to_s+".vdi"
