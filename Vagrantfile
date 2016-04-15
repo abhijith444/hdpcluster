@@ -23,7 +23,11 @@ Vagrant.configure(2) do |config|
 
   
   nodes.each do |node|
-    config.vm.network :forwarded_port, guest: 8080, host: 8080 if node[:name]=="ambari"
+#    if node[:name] == :"ambari"
+#      puts node[:name]
+#      config.vm.provision :shell, :path=>"ambari-install.sh" 
+#      config.vm.network :forwarded_port, guest: 8080, host: 8080
+#    end
     config.vm.define node[:name] do |config|
       config.vm.provider :virtualbox do |vb|
         vdisk="./disk_"+node[:name].to_s+".vdi"

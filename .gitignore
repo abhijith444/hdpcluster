@@ -5,3 +5,4 @@ shared
 .git
 *.swp
 *.lock
+authorized_keys
