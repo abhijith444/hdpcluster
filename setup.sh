@@ -1,4 +1,4 @@
-yum install ntp ntpdate ntp-doc vim git man vim -y
+yum install vim ntp ntpdate ntp-doc man -y
 service ntpd start
 chkconfig iptables off /etc/init.d/iptables stop
 mkdir -p ~/.ssh

@@ -1,16 +1,16 @@
 #VERSION_NUMBER=2.3.4.0-3485
 [HDP-2.3.4.0]
 name=HDP Version - HDP-2.3.4.0
-baseurl=http://ambari.mycluster.com/HDP/centos6/2.x/updates/2.3.4.0
+baseurl=http://ambari.mycluster.com/hdp/HDP/centos6/2.x/updates/2.3.4.0
 gpgcheck=1
-gpgkey=http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.3.4.0/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+gpgkey=http://ambari.mycluster.com/hdp/HDP/centos6/2.x/updates/2.3.4.0
 enabled=1
 priority=1
 
 
 [HDP-UTILS-1.1.0.20]
 name=HDP Utils Version - HDP-UTILS-1.1.0.20
-baseurl=http://ambari.mycluster.com/HDP-UTILS-1.1.0.20/repos/centos6
+baseurl=http://ambari.mycluster.com/hdp/HDP-UTILS-1.1.0.20/repos/centos6
 gpgcheck=1
 gpgkey=http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.3.4.0/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 enabled=1

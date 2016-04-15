@@ -1,9 +1,9 @@
-#VERSION_NUMBER=2.2.1.0-161
+#VERSION_NUMBER=2.2.0.0-161
 
-[Updates-ambari-2.2.1.0]
-name=ambari-2.2.1.0 - Updates
-baseurl=http://ambari.mycluster.com/AMBARI-2.2.1.0/centos6/2.2.1.0-161
+[Updates-ambari-2.2.0.0]
+name=ambari-2.2.0.0 - Updates
+baseurl=http://ambari.mycluster.com/ambari-2.2.0.0/centos6/2.2.0.0-1310/
 gpgcheck=1
-gpgkey=http://ambari.mycluster.com/AMBARI-2.2.1.0/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+gpgkey=http://ambari.mycluster.com/ambari-2.2.0.0/centos6/2.2.0.0-1310/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 enabled=1
 priority=1

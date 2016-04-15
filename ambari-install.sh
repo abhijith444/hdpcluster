@@ -1,8 +1,11 @@
-wget -nv http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.2.0.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
-yum install -y ambari-server
-yum install -y mysql-server mysql-connector-java
+yum install -y httpd mysql-server mysql-connector-java
 service mysqld start
-
+service httpd start
+ssh-keygen -t rsa -P '' -f /root/.ssh/id_rsa
+cp /root/.ssh/id_rsa.pub /vagrant/authorized_keys
+#Install oracle jdk
+cp -f /vagrant/repos/*.repo /etc/yum.repos.d
+yum install -y ambari-server
 mysql -e "CREATE DATABASE ambari"
 mysql -e "CREATE DATABASE hive"
 mysql -e "CREATE DATABASE oozie"
