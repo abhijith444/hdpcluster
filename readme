@@ -1,0 +1,5 @@
+Put these files in /etc/yum.repos.d
+extract ambari,hdp-2.3.0,hdp-utils in the webserver
+
+Install Oracle JDK and give the path of java home in ambari setup as follows
+ambari-server setup -j /usr/jdk_1.8u_77 
