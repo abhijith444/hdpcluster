@@ -3,7 +3,7 @@
 name=HDP Version - HDP-2.3.4.0
 baseurl=http://ambari.mycluster.com/hdp/HDP/centos6/2.x/updates/2.3.4.0
 gpgcheck=1
-gpgkey=http://ambari.mycluster.com/hdp/HDP/centos6/2.x/updates/2.3.4.0
+gpgkey=http://ambari.mycluster.com/hdp/HDP/centos6/2.x/updates/2.3.4.0/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
 enabled=1
 priority=1
 

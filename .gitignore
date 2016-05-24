@@ -6,3 +6,5 @@ shared
 *.swp
 *.lock
 authorized_keys
+*.tar.gz
+*.rpm

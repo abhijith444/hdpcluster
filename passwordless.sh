@@ -1,9 +1,8 @@
-vagrant ssh ambari "sudo ssh-keygen -t rsa -P '' -f /root/.ssh/id_rsa"
-vagrant ssh ambari "sudo cp /root/.ssh/id_rsa.pub /shared"
-vagrant ssh ambari "sudo cat /shared/id_rsa.pub >>~/.ssh/authorized_keys"
-vagrant ssh edge "sudo cat /shared/id_rsa.pub >>~/.ssh/authorized_keys"
-vagrant ssh comp1 "sudo cat /shared/id_rsa.pub >>~/.ssh/authorized_keys"
-vagrant ssh comp2 "sudo cat /shared/id_rsa.pub >>~/.ssh/authorized_keys"
-vagrant ssh comp3 "sudo cat /shared/id_rsa.pub >>~/.ssh/authorized_keys"
-
-
+vagrant ssh ambari -c "echo y|sudo ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa; sudo ls -l /root/.ssh/id_rsa.pub;"
+vagrant ssh ambari -c "sudo cp -f /root/.ssh/id_rsa.pub /shared; sudo ls -l /shared/id_rsa.pub;"
+vagrant ssh ambari -c "sudo cp /shared/id_rsa.pub /root/.ssh/authorized_keys; hostname; sudo ls -l /root/.ssh/authorized_keys;"
+vagrant ssh edge -c "sudo cp /shared/id_rsa.pub /root/.ssh/authorized_keys; hostname; sudo ls -l /root/.ssh/authorized_keys;"
+vagrant ssh comp1 -c "sudo cp /shared/id_rsa.pub /root/.ssh/authorized_keys; hostname; sudo ls -l /root/.ssh/authorized_keys;"
+vagrant ssh comp2 -c "sudo cp /shared/id_rsa.pub /root/.ssh/authorized_keys; hostname; sudo ls -l /root/.ssh/authorized_keys;"
+vagrant ssh comp3 -c "sudo cp /shared/id_rsa.pub /root/.ssh/authorized_keys; hostname; sudo ls -l /root/.ssh/authorized_keys;"
+vagrant ssh ambari -c "sudo cat /root/.ssh/id_rsa;"
