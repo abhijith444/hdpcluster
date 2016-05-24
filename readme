@@ -3,3 +3,21 @@ extract ambari,hdp-2.3.0,hdp-utils in the webserver
 
 Install Oracle JDK and give the path of java home in ambari setup as follows
 ambari-server setup -j /usr/jdk_1.8u_77 
+
+# After this select MySQL as you ambari db
+# run mysql as root and pick the ambari database
+# Source the file provided in the setup. It typicaly looks like this in your mysql shell
+# mysql>use ambari;source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql;
+
+# To configure passwordless ssh run passwordless.sh for the vagrant folder
+
+
+## Ambari Setup ##
+--Hosts--
+ambari.mycluster.com
+edge.mycluster.com
+comp1.mycluster.com
+comp2.mycluster.com
+comp3.mycluster.com
+
+Key can be obtained from the output of passwordless.sh
