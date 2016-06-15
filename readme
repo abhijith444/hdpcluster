@@ -21,3 +21,22 @@ comp2.mycluster.com
 comp3.mycluster.com
 
 Key can be obtained from the output of passwordless.sh
+
+--/etc/hosts in host machine--
+192.168.20.20 ambari.mycluster.com ambari
+192.168.20.21 edge.mycluster.com edge
+192.168.20.22 comp1.mycluster.com comp1
+192.168.20.23 comp2.mycluster.com comp2
+192.168.20.24 comp3.mycluster.com comp3
+
+To install hue
+yum install -y hue
+configure/copy hue.ini
+
+core-site.xml
+hadoop.proxyuser.hue.hosts=*
+hadoop.proxyuser.hue.groups=*
+
+oozie-site.xml
+oozie.service.ProxyUserService.proxyuser.hue.hosts=*
+oozie.service.ProxyUserService.proxyuser.hue.groups=*
