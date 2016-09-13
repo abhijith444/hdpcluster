@@ -29,7 +29,7 @@ Vagrant.configure(2) do |config|
 #      config.vm.network :forwarded_port, guest: 8080, host: 8080
 #    end
     config.vm.define node[:name] do |config|
-      config.vm.provision :shell, :path=>"ambari-install.sh" if node[:name] == :"ambari"
+      config.vm.provision :shell, :path=>"ambari-install-web.sh" if node[:name] == :"ambari"
       config.vm.network "forwarded_port", guest: 8080, host: 8080 if node[:name] == :"ambari"
       config.vm.network "forwarded_port", guest: 8000, host: 8000 if node[:name] == :"edge"
       config.vm.network "forwarded_port", guest: 8088, host: 8088 if node[:name] == :"comp1"
