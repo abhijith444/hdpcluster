@@ -3,13 +3,12 @@
 HOST_TLD="mycluster.com"
 nodes = [
     {:name => :"ambari", :cpu => 1, :mem => 4500, :ip => "192.168.20.20"},
-    {:name => :"edge", :cpu => 1, :mem => 2500, :ip => "192.168.20.21"},
-    {:name => :"comp1", :cpu => 1, :mem => 3500, :ip => "192.168.20.22"},
-    {:name => :"comp2", :cpu => 1, :mem => 3500, :ip => "192.168.20.23"},
-    {:name => :"comp3", :cpu => 1, :mem => 3500, :ip => "192.168.20.24"}
+    {:name => :"comp1", :cpu => 1, :mem => 4000, :ip => "192.168.20.22"},
+    {:name => :"comp2", :cpu => 1, :mem => 4000, :ip => "192.168.20.23"},
+    {:name => :"comp3", :cpu => 1, :mem => 4000, :ip => "192.168.20.24"}
 ]
 Vagrant.configure(2) do |config|
-  config.vm.box = "vagrant-centos"
+  config.vm.box = "centos67"
   config.vm.box_url = "https://github.com/CommanderK5/packer-centos-template/releases/download/0.6.7/vagrant-centos-6.7.box"
   config.vm.synced_folder "./shared", "/shared", create:true
 #  config.vm.provision :shell, :path=>"setup.sh"
@@ -29,9 +28,11 @@ Vagrant.configure(2) do |config|
 #      config.vm.network :forwarded_port, guest: 8080, host: 8080
 #    end
     config.vm.define node[:name] do |config|
-      config.vm.provision :shell, :path=>"ambari-install.sh" if node[:name] == :"ambari"
+      config.vm.provision :shell, :path=>"ambari-install-web.sh" if node[:name] == :"ambari"
+      config.vm.provision :shell, :path=>"ambari-agent-install.sh"
       config.vm.network "forwarded_port", guest: 8080, host: 8080 if node[:name] == :"ambari"
-      config.vm.network "forwarded_port", guest: 8000, host: 8000 if node[:name] == :"edge"
+      config.vm.network "forwarded_port", guest: 80, host: 8181 if node[:name] == :"ambari"
+      config.vm.network "forwarded_port", guest: 50070, host: 50070 if node[:name] == :"ambari"
       config.vm.network "forwarded_port", guest: 8088, host: 8088 if node[:name] == :"comp1"
       config.vm.provider :virtualbox do |vb|
         vdisk="./disk_"+node[:name].to_s+".vdi"
